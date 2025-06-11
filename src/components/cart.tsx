@@ -1,4 +1,3 @@
-import "@/styles/wrappers.css";
 import { Card } from "primereact/card";
 import { InputMask } from "primereact/inputmask";
 import { Button } from "primereact/button";
@@ -17,16 +16,30 @@ const Cart = observer(({ cart }: { cart: CartState }) => {
   function order() {
     const phoneNums = phone.match(/\b\d+\b/g)?.join("");
     if (phoneNums?.length === 11) {
+      popup("info", "Отправка...", "Отправка заказа...");
       setInvalid(false);
-      postOrder(phoneNums, cart.cart).then(() => popup());
+      postOrder(phoneNums, cart.cart).then(() =>
+        popup("success", "Успешно", "Заказ успешно отправлен"),
+      );
     } else setInvalid(true);
   }
 
-  function popup() {
+  function popup(
+    severity:
+      | "success"
+      | "info"
+      | "warn"
+      | "error"
+      | "secondary"
+      | "contrast"
+      | undefined,
+    summary: string,
+    detail: string,
+  ) {
     toast.current?.show({
-      severity: "success",
-      summary: "Успешно",
-      detail: "Заказ был успешно отправлен",
+      severity,
+      summary,
+      detail,
     });
   }
 

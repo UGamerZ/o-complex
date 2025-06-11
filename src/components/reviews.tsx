@@ -1,5 +1,4 @@
 import { Card } from "primereact/card";
-import "@/styles/wrappers.css";
 import { ReviewDTO } from "@/types/apiResponse";
 import parse from "html-react-parser";
 
